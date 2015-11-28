@@ -26,7 +26,7 @@ server.route({
             request.payload.primary_resources[0].url+"' data-sanitized='"+request.payload.primary_resources[0].url+
             "' data-display='"+request.payload.message+"'>"+request.payload.message+"</a>";
         console.log(anchor);
-        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',[[0, anchor]])
+        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',[[0, request.payload.primary_resources[0].url]])
         return reply('');
     }
 });

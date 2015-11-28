@@ -109,6 +109,8 @@ server.route({
     method: 'GET',
     path:'/projects',
     handler: function (request, reply) {
-        return Project.find();
+        Project.find({},function(err,projects){
+            reply(projects);
+        });
     }
 });

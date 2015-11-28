@@ -22,7 +22,7 @@ server.route({
     method: 'POST',
     path:'/pivotal',
     handler: function (request, reply) {
-        var anchor = "<a href='"+request.payload.primary_resources.url+"'>"+request.payload.message+"</a>";
+        var anchor = "<a href='"+request.payload.primary_resources[0].url+"'>"+request.payload.message+"</a>";
         console.log(anchor);
         return reply('');
     }

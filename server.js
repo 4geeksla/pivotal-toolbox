@@ -34,11 +34,13 @@ server.route({
     method: 'POST',
     path:'/pivotal',
     handler: function (request, reply) {
+        console.log('\n\nPAYLOAD\n\n');
         console.log(request.payload);
 
         var projet_id = request.payload.project.id;
 
         Project.find({id:projet_id},function(err, p){
+            console.log('\n\nPROJECT\n\n');
             console.log(p);
             if(err) {
                 reply(err);

@@ -22,11 +22,9 @@ server.route({
     method: 'POST',
     path:'/pivotal',
     handler: function (request, reply) {
-        var anchor = "<a dir='ltr' tabindex='-1' class='Xx' target='_blank' rel='nofollow noreferrer' href='"+
-            request.payload.primary_resources[0].url+"' data-sanitized='"+request.payload.primary_resources[0].url+
-            "' data-display='"+request.payload.message+"'>"+request.payload.message+"</a>";
-        console.log(anchor);
-        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',[[0, request.payload.primary_resources[0].url]])
+        var builder = new Client.MessageBuilder();
+        builder.link(request.payload.message, request.payload.primary_resources[0].url);
+        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',builder);
         return reply('');
     }
 });

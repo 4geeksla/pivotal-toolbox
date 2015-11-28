@@ -24,18 +24,9 @@ server.route({
     handler: function (request, reply) {
         var message = request.payload.message;
         var url = request.payload.primary_resources[0].url;
-
-        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',[[0, message]])
+        //client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',[[0, message]])
         var builder = new Client.MessageBuilder();
-        builder.link(message, url);
-
-        console.log("\n\n\n");
-        console.log(builder);
-        console.log("\n\n\n");
-        console.log(builder.toSegments);
-        console.log("\n\n\n");
-        console.log(builder.toSegments());
-        console.log("\n\n\n");
+        builder.text(message + " ").link("story", url);
         client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',builder.toSegments());
         return reply('');
     }

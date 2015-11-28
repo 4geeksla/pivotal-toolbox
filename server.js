@@ -36,15 +36,24 @@ server.route({
     path:'/pivotal',
     handler: function (request, reply) {
         console.log(request.payload);
-        var conversation_id = 'UgwgjAkjSbqRJ0ALdsx4AaABAQ';
-        var message = request.payload.message;
-        var url = request.payload.primary_resources[0].url;
 
-        var builder = new Client.MessageBuilder();
-        builder.text(message + " ").link("story", url);
-        client.sendchatmessage(conversation_id, builder.toSegments());
+        var projet_id = request.payload.project.id;
 
-        return reply('');
+        Project.find({id:projet_id},function(err, p){
+            console.log(p);
+            if(err) {
+                reply(err);
+                return;
+            }
+            if(p){
+                var conversation_id = p.conversation_id;
+                var message = request.payload.message;
+                var url = request.payload.primary_resources[0].url;
+                var builder = new Client.MessageBuilder();
+                builder.text(message + " ").link("story", url);
+                client.sendchatmessage(conversation_id, builder.toSegments());
+            }
+        });
     }
 });
 

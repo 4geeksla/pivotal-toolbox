@@ -52,7 +52,7 @@ server.route({
                     if(request.payload.changes){
                        request.payload.changes.forEach(function(c){
                            if(c.kind==='story'){
-                                message = message.replace("this", c.name);
+                                message = message.replace("this", '"'+c.name+'"');
                            }
                        });
                     }

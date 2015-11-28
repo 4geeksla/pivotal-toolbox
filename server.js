@@ -50,10 +50,8 @@ server.route({
 
 // Start the server
 server.start((err) => {
+    console.log(err);
 
-    if (err) {
-        throw err;
-    }
     console.log('Server running at:', server.info.uri);
 });
 
@@ -85,5 +83,5 @@ client.on('chat_message', function(ev) {
 // the id is a conversation id.
 client.connect(creds).then(function() {
     return client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',
-    [[0, 'HI! .. i am from cabimas, nice to meet you...  [created by alacret]']]);
+    [[0, 'HI! .. i am from cabimas, nice to meet you...  [created by ecaminero]']]);
 }).done();

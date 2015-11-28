@@ -10,9 +10,22 @@ server.connection({
 });
 
 // Add the route
+server.register(require('inert'), function (err) {
+    if (err) {
+        throw err;
+    }
+
+    server.route({
+        method: 'GET',
+        path: '/',
+        handler: function (request, reply) {
+            reply.file('./public/index.html');
+        }
+    });
+});
 server.route({
     method: 'GET',
-    path:'/pivotal', 
+    path:'/pivotal',
     handler: function (request, reply) {
 	    console.log("TEST");
         return reply('');
@@ -22,6 +35,7 @@ server.route({
     method: 'POST',
     path:'/pivotal',
     handler: function (request, reply) {
+        console.log(request.payload);
         var conversation_id = 'UgwgjAkjSbqRJ0ALdsx4AaABAQ';
         var message = request.payload.message;
         var url = request.payload.primary_resources[0].url;

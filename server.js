@@ -22,8 +22,10 @@ server.route({
     method: 'POST',
     path:'/pivotal',
     handler: function (request, reply) {
+        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',[[0, request.payload.message]])
         var builder = new Client.MessageBuilder();
-        builder.link(request.payload.message, request.payload.primary_resources[0].url);
+        var url = request.payload.primary_resources[0].url;
+        builder.link("Story", "http://www.facebook.com");
         client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',builder);
         return reply('');
     }

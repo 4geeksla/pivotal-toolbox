@@ -36,7 +36,7 @@ server.route({
         console.log("\n\n\n");
         console.log(builder.toSegments());
         console.log("\n\n\n");
-        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',builder.toSegments);
+        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',builder.toSegments());
         return reply('');
     }
 });

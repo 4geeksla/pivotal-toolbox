@@ -14,7 +14,6 @@ server.register(require('inert'), function (err) {
     if (err) {
         throw err;
     }
-
     server.route({
         method: 'GET',
         path: '/',
@@ -83,7 +82,7 @@ var creds = function() {
 var client = new Client();
 
 // set more verbose logging
-client.loglevel('debug');
+//client.loglevel('debug');
 
 // receive chat message events
 client.on('chat_message', function(ev) {

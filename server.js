@@ -57,7 +57,7 @@ server.start((err) => {
     console.log('Server running at:', server.info.uri);
 });
 
-
+//HANGOUTS PART
 
 var Client = require('hangupsjs');
 //var Q = require('q');
@@ -87,3 +87,28 @@ client.connect(creds).then(function() {
     return client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',
     [[0, 'HI! .. i am from cabimas, nice to meet you...  [created by alacret]']]);
 }).done();
+
+
+//SERVICE PART
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+  console.log("connect to pt database on mongo")
+});
+
+var projectSchema = mongoose.Schema({
+    name: String,
+    id: String,
+    conversation_id: String
+});
+var Project = mongoose.model('Project', projectSchema);
+
+server.route({
+    method: 'GET',
+    path:'/projects',
+    handler: function (request, reply) {
+        return Project.find();
+    }
+});

@@ -7,7 +7,7 @@ var Client = require('hangupsjs');
 var creds = function() {
   return {
     //auth: Client.authStdin
-      auth: '4/kcx7B1QfNvWACfn-3LeV51x6j56IqWztLSX1rB9QZFg'
+      auth: '4/1xwOZ7VbROzmQUo4k4pZVz8-GLp4rD7leTx85TUtipM'
   };
 };
 

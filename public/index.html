@@ -1,53 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<h1>Welcome to Pivotal ToolBox</h1>
-<h2>Pivotal-hangout integration</h2>
-<section>
-    <h3>Already intgrated projects</h3>
-    <table>
-        <tr>
-            <th>Project</th>
-            <th>Conversation ID</th>
-            <th>Remove?</th>
-        </tr>
-        <tr>
-            <td>Pivotal Toolbox</td>
-            <td>UgwgjAkjSbqRJ0ALdsx4AaABAQ</td>
-            <td><button>REMOVE</button></td>
-        </tr>
-    </table>
-</section>
-<section>
-    <h3>Integrate a new project</h3>
-    <h4>1) Set UP:</h4>
-    <p>Make sure you have access to tne INTEGRATION tab on your project settings.</p>
-    <p>Add: http://odoo.geekies.co:8000/pivotal as WEB HOOK for notifications in your project</p>
+<html lang="en" ng-app="pivotalToolbox">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.min.js"></script>
+    <script>
+        angular.module('pivotalToolbox', [])
+        .config(function ($httpProvider) {
+            $httpProvider.defaults.headers.common['X-TrackerToken'] = '6206d4d545fd7bc514a1836deb5f7ce4';
+        })
+        .controller('homeController', function($scope, $http) {
+            $scope.getProject = function(){
+                $http({
+                  method: 'GET',
+                  url: 'https://www.pivotaltracker.com/services/v5/projects'
+                }).then(function successCallback(response) {
+                    console.log("response", response);
+                    $scope.projects = response.data;
+                  }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                  });
+            }
+        });
 
-    <h4>2) Find the project you just add, an add the conversation_id of your hangout group:</h4>
-    <p><strong>NOTE:</strong> Make sure you add: pivotal-toolbox@gmail.com account to your Hangout Chat</p>
-    <p><strong>NOTE:</strong> In order to get your hangout group chat conversation_id you will have to sniff in the HTML
-    code of your gmail web page. Ask a hacker to do this</p>
-    Pivotal API KEY:<br>
-    <input><button>List</button>
-    <table>
-        <tr>
-            <th>Project Name</th>
-            <th>Project ID</th>
-            <th>Conversation ID</th>
-            <th>SAVE</th>
-        </tr>
-        <tr>
-            <td>Pivotal Toolbox</td>
-            <td>1490026</td>
-            <td><input value="UgwgjAkjSbqRJ0ALdsx4AaABAQ"></td>
-            <td><button>SAVE</button></td>
-        </tr>
-    </table>
-</section>
-</body>
+    </script>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body ng-controller="homeController">
+    <div ng-init="getProject()"></div>
+        <h1>Welcome to Pivotal ToolBox</h1>
+        <h2>Pivotal-hangout integration</h2>
+        <section>
+            <h3>Already intgrated projects</h3>
+            <table>
+                <tr>
+                    <th>Project</th>
+                    <th>Conversation ID</th>
+                    <th>Remove?</th>
+                </tr>
+                <tr>
+                    <td>Pivotal Toolbox</td>
+                    <td>UgwgjAkjSbqRJ0ALdsx4AaABAQ</td>
+                    <td><button>REMOVE</button></td>
+                </tr>
+            </table>
+        </section>
+        <section>
+            <h3>Integrate a new project</h3>
+            <h4>1) Set UP:</h4>
+            <p>Make sure you have access to tne INTEGRATION tab on your project settings.</p>
+            <p>Add: http://odoo.geekies.co:8000/pivotal as WEB HOOK for notifications in your project</p>
+
+            <h4>2) Find the project you just add, an add the conversation_id of your hangout group:</h4>
+            <p><strong>NOTE:</strong> Make sure you add: pivotal-toolbox@gmail.com account to your Hangout Chat</p>
+            <p><strong>NOTE:sss</strong> In order to get your hangout group chat conversation_id you will have to sniff in the HTML
+            code of your gmail web page. Ask a hacker to do this</p>
+            Pivotal API KEY:<br>
+           <select>
+              <option value="volvo">Volvo</option>
+              <option value="saab">Saab</option>
+              <option value="mercedes">Mercedes</option>
+              <option value="audi">Audi</option>
+            </select>
+            <table>
+                <thead>
+                    <th>Project Name</th>
+                    <th>Project ID</th>
+                    <th>Start Time</th>
+                    <th>Conversation ID</th>
+                    <th>SAVE</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat ="project in projects">
+                        <td>{{project.name}}</td>
+                        <td>{{project.id}}</td>
+                        <td>{{project.start_time}}</td>
+                        <td><input value="UgwgjAkjSbqRJ0ALdsx4AaABAQ"></td>
+                        <td><button>SAVE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </body>
 </html>

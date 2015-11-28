@@ -1,0 +1,20 @@
+{
+  "name": "pivotal-toolbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "hangouts-bot": "^0.2.0",
+    "hangupsjs": "^1.2.0",
+    "hapi": "^11.1.2",
+    "node-xmpp-client": "^3.0.0",
+    "node-xmpp-component": "^1.0.0",
+    "node-xmpp-server": "^2.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

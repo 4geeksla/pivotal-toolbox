@@ -24,6 +24,7 @@ server.route({
     handler: function (request, reply) {
         var anchor = "<a href='"+request.payload.primary_resources[0].url+"'>"+request.payload.message+"</a>";
         console.log(anchor);
+        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',[[0, anchor]])
         return reply('');
     }
 });
@@ -65,5 +66,5 @@ client.on('chat_message', function(ev) {
 // the id is a conversation id.
 client.connect(creds).then(function() {
     return client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',
-    [[0, 'I am a mother fucker nodeJD bot created by alacret']]);
+    [[0, 'HI! .. i am from cabimas, nice to meet you...  [created by alacret]']]);
 }).done();

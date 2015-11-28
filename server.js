@@ -1,7 +1,7 @@
 'use strict';
 
 const Hapi = require('hapi');
-
+const apiPivotal = "https://www.pivotaltracker.com/services/v5";
 // Create a server with a host and port
 const server = new Hapi.Server();
 server.connection({ 
@@ -22,14 +22,7 @@ server.register(require('inert'), function (err) {
         }
     });
 });
-server.route({
-    method: 'GET',
-    path:'/pivotal',
-    handler: function (request, reply) {
-	    console.log("TEST");
-        return reply('');
-    }
-});
+
 server.route({
     method: 'POST',
     path:'/pivotal',
@@ -69,12 +62,10 @@ server.route({
     }
 });
 
+
 // Start the server
 server.start((err) => {
 
-    if (err) {
-        throw err;
-    }
     console.log('Server running at:', server.info.uri);
 });
 
@@ -106,7 +97,7 @@ client.on('chat_message', function(ev) {
 // the id is a conversation id.
 client.connect(creds).then(function() {
     return client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',
-    [[0, 'HI! .. i am from cabimas, nice to meet you...  [created by alacret]']]);
+    [[0, 'HI! .. server started...  [created by ecaminero]']]);
 }).done();
 
 
@@ -122,12 +113,17 @@ var projectSchema = mongoose.Schema({
     id: String,
     conversation_id: String
 });
+
 var Project = mongoose.model('Project', projectSchema);
 
 server.route({
     method: 'GET',
     path:'/projects',
     handler: function (request, reply) {
+        request(apiPivotal+"/projects", function(error, response, body){
+            console.log("Request received");
+            console.log(response);
+      });
         Project.find({},function(err,projects){
             reply(projects);
         });

@@ -112,6 +112,7 @@ client.connect(creds).then(function() {
 
 //SERVICE PART
 var http = require('http');
+var rp = require('request-promise');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/pt');
 var db = mongoose.connection;

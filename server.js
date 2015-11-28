@@ -22,10 +22,20 @@ server.route({
     method: 'POST',
     path:'/pivotal',
     handler: function (request, reply) {
-        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',[[0, request.payload.message]])
-        var builder = new Client.MessageBuilder();
+        var message = request.payload.message;
         var url = request.payload.primary_resources[0].url;
-        builder.link("Story", "http://www.facebook.com");
+
+        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',[[0, message]])
+        var builder = new Client.MessageBuilder();
+        builder.link(message, url);
+
+        console.log("\n\n\n");
+        console.log(builder);
+        console.log("\n\n\n");
+        console.log(builder.toSegments);
+        console.log("\n\n\n");
+        console.log(builder.toSegments());
+        console.log("\n\n\n");
         client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',builder.toSegments);
         return reply('');
     }

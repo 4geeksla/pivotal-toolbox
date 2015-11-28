@@ -22,8 +22,14 @@ server.route({
     method: 'POST',
     path:'/pivotal',
     handler: function (request, reply) {
-	console.log(request)
-        return reply('hello world');
+	    console.log(request.params);
+        console.log("\n\n");
+        console.log(request.paramsArray);
+        console.log("\n\n");
+        console.log(request.payload);
+        console.log("\n\n");
+        console.log(request.query);
+        return reply('');
     }
 });
 

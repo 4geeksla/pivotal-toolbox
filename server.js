@@ -150,6 +150,7 @@ server.route({
             json: true // Automatically stringifies the body to JSON
         };
         reply(rp);
+    }
 });
 
 server.route({

@@ -47,9 +47,18 @@ server.route({
                 return;
             }
             if(pp){
+                var message = request.payload.message;
+                if(message.indexOf("this") !== -1 ){//Swith 'this' for the story name
+                    if(request.payload.changes){
+                       request.payload.changes.forEach(function(c){
+                           if(c.kind==='story'){
+                                message = message.replace("this", c.name);
+                           }
+                       });
+                    }
+                }
                 pp.forEach(function(p){
                     var conversation_id = p.conversation_id;
-                    var message = request.payload.message;
                     var url = request.payload.primary_resources[0].url;
                     var builder = new Client.MessageBuilder();
                     builder.text(message + " ").link("story", url);

@@ -111,8 +111,6 @@ client.connect(creds).then(function() {
 
 
 //SERVICE PART
-var http = require('http');
-var rp = require('request-promise');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/pt');
 var db = mongoose.connection;
@@ -133,24 +131,6 @@ server.route({
         Project.find({},function(err,projects){
             reply(projects);
         });
-    }
-});
-
-server.route({
-    method: 'GET',
-    path:'/pivotal-projects',
-    handler: function (request, reply) {
-        console.log(request.params);
-        console.log(request.payload);
-
-        var options = {
-            method: 'GET',
-            uri: 'https://www.pivotaltracker.com/services/v5/projects',
-            //This is the only line that is new. `headers` is an object with the headers to request
-            headers: {'X-TrackerToken': 'ff7319b7d06fbf0efbcaa63b01996a5d'},
-            json: true // Automatically stringifies the body to JSON
-        };
-        reply(rp);
     }
 });
 

@@ -111,6 +111,7 @@ client.connect(creds).then(function() {
 
 
 //SERVICE PART
+var rp = require('request-promise');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/pt');
 var db = mongoose.connection;
@@ -133,6 +134,22 @@ server.route({
         });
     }
 });
+
+server.route({
+    method: 'GET',
+    path:'/pivotal-projects',
+    handler: function (request, reply) {
+        console.log(request.params);
+        console.log(request.payload);
+        var options = {
+            uri: 'https://www.pivotaltracker.com/services/v5/projects',
+            headers: {'X-TrackerToken': 'ff7319b7d06fbf0efbcaa63b01996a5d'}
+            json: true // Automatically parses the JSON string in the response
+        };
+        reply(rp(options));
+    }
+});
+
 
 server.route({
     method: 'POST',

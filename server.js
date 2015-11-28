@@ -143,7 +143,7 @@ server.route({
         console.log(request.payload);
         var options = {
             uri: 'https://www.pivotaltracker.com/services/v5/projects',
-            headers: {'X-TrackerToken': 'ff7319b7d06fbf0efbcaa63b01996a5d'}
+            headers: {'X-TrackerToken': 'ff7319b7d06fbf0efbcaa63b01996a5d'},
             json: true // Automatically parses the JSON string in the response
         };
         reply(rp(options));

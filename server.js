@@ -114,3 +114,13 @@ server.route({
         });
     }
 });
+
+server.route({
+    method: 'POST',
+    path:'/projects',
+    handler: function (request, reply) {
+        console.log(request.params);
+        console.log(request.payload);
+        return reply('');
+    }
+});

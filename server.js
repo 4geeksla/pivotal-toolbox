@@ -39,20 +39,22 @@ server.route({
 
         var projet_id = request.payload.project.id;
 
-        Project.find({id:projet_id},function(err, p){
+        Project.find({id:projet_id},function(err, pp){
             console.log('\n\nPROJECT\n\n');
-            console.log(p);
+            console.log(pp);
             if(err) {
                 reply(err);
                 return;
             }
-            if(p){
-                var conversation_id = p.conversation_id;
-                var message = request.payload.message;
-                var url = request.payload.primary_resources[0].url;
-                var builder = new Client.MessageBuilder();
-                builder.text(message + " ").link("story", url);
-                client.sendchatmessage(conversation_id, builder.toSegments());
+            if(pp){
+                pp.forEach(function(p){
+                    var conversation_id = p.conversation_id;
+                    var message = request.payload.message;
+                    var url = request.payload.primary_resources[0].url;
+                    var builder = new Client.MessageBuilder();
+                    builder.text(message + " ").link("story", url);
+                    client.sendchatmessage(conversation_id, builder.toSegments());
+                });
             }
         });
     }

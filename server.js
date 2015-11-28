@@ -14,6 +14,14 @@ server.route({
     method: 'GET',
     path:'/pivotal', 
     handler: function (request, reply) {
+	    console.log("TEST");
+        return reply('');
+    }
+});
+server.route({
+    method: 'POST',
+    path:'/pivotal',
+    handler: function (request, reply) {
 	console.log(request)
         return reply('hello world');
     }

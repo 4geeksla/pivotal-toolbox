@@ -22,12 +22,14 @@ server.route({
     method: 'POST',
     path:'/pivotal',
     handler: function (request, reply) {
+        var conversation_id = 'UgwgjAkjSbqRJ0ALdsx4AaABAQ';
         var message = request.payload.message;
         var url = request.payload.primary_resources[0].url;
-        //client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',[[0, message]])
+
         var builder = new Client.MessageBuilder();
         builder.text(message + " ").link("story", url);
-        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',builder.toSegments());
+        client.sendchatmessage(conversation_id, builder.toSegments());
+
         return reply('');
     }
 });

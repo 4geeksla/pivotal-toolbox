@@ -11,7 +11,8 @@
     "mongoose": "^4.2.8",
     "node-xmpp-client": "^3.0.0",
     "node-xmpp-component": "^1.0.0",
-    "node-xmpp-server": "^2.1.2"
+    "node-xmpp-server": "^2.1.2",
+    "request-promise": "^1.0.2"
   },
   "devDependencies": {},
   "scripts": {

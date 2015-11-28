@@ -14,7 +14,6 @@ server.register(require('inert'), function (err) {
     if (err) {
         throw err;
     }
-
     server.route({
         method: 'GET',
         path: '/',
@@ -28,16 +27,38 @@ server.route({
     method: 'POST',
     path:'/pivotal',
     handler: function (request, reply) {
+        console.log('\n\nPAYLOAD\n\n');
         console.log(request.payload);
-        var conversation_id = 'UgwgjAkjSbqRJ0ALdsx4AaABAQ';
-        var message = request.payload.message;
-        var url = request.payload.primary_resources[0].url;
 
-        var builder = new Client.MessageBuilder();
-        builder.text(message + " ").link("story", url);
-        client.sendchatmessage(conversation_id, builder.toSegments());
+        var projet_id = request.payload.project.id;
 
-        return reply('');
+        Project.find({id:projet_id},function(err, pp){
+            console.log('\n\nPROJECT\n\n');
+            console.log(pp);
+            if(err) {
+                reply(err);
+                return;
+            }
+            if(pp){
+                var message = request.payload.message;
+                if(message.indexOf("this") !== -1 ){//Swith 'this' for the story name
+                    if(request.payload.changes){
+                       request.payload.changes.forEach(function(c){
+                           if(c.kind==='story'){
+                                message = message.replace("this", '"'+c.name+'"');
+                           }
+                       });
+                    }
+                }
+                pp.forEach(function(p){
+                    var conversation_id = p.conversation_id;
+                    var url = request.payload.primary_resources[0].url;
+                    var builder = new Client.MessageBuilder();
+                    builder.text(message + " ").link("story", url);
+                    client.sendchatmessage(conversation_id, builder.toSegments());
+                });
+            }
+        });
     }
 });
 
@@ -65,7 +86,7 @@ var creds = function() {
 var client = new Client();
 
 // set more verbose logging
-client.loglevel('debug');
+//client.loglevel('debug');
 
 // receive chat message events
 client.on('chat_message', function(ev) {
@@ -81,13 +102,13 @@ client.connect(creds).then(function() {
 
 
 //SERVICE PART
+var http = require('http');
+var rp = require('request-promise');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/pt');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
-  console.log("connect to pt database on mongo")
-});
+db.once('open', function (callback) {console.log("connect to pt database on mongo")});
 
 var projectSchema = mongoose.Schema({
     name: String,
@@ -108,6 +129,24 @@ server.route({
         Project.find({},function(err,projects){
             reply(projects);
         });
+    }
+});
+
+server.route({
+    method: 'GET',
+    path:'/pivotal-projects',
+    handler: function (request, reply) {
+        console.log(request.params);
+        console.log(request.payload);
+
+        var options = {
+            method: 'GET',
+            uri: 'https://www.pivotaltracker.com/services/v5/projects',
+            //This is the only line that is new. `headers` is an object with the headers to request
+            headers: {'X-TrackerToken': 'ff7319b7d06fbf0efbcaa63b01996a5d'},
+            json: true // Automatically stringifies the body to JSON
+        };
+        reply(rp);
     }
 });
 

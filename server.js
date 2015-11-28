@@ -26,7 +26,7 @@ server.route({
         var builder = new Client.MessageBuilder();
         var url = request.payload.primary_resources[0].url;
         builder.link("Story", "http://www.facebook.com");
-        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',builder);
+        client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',builder.toSegments);
         return reply('');
     }
 });

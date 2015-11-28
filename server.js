@@ -22,13 +22,8 @@ server.route({
     method: 'POST',
     path:'/pivotal',
     handler: function (request, reply) {
-	    console.log(request.params);
-        console.log("\n\n");
-        console.log(request.paramsArray);
-        console.log("\n\n");
-        console.log(request.payload);
-        console.log("\n\n");
-        console.log(request.query);
+        var anchor = "<a href='"+request.payload.primary_resources.url+"'>"+request.payload.message+"</a>";
+        console.log(anchor);
         return reply('');
     }
 });

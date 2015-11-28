@@ -91,12 +91,10 @@ client.connect(creds).then(function() {
 
 //SERVICE PART
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/pt');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
-  console.log("connect to pt database on mongo")
-});
+db.once('open', function (callback) {console.log("connect to pt database on mongo")});
 
 var projectSchema = mongoose.Schema({
     name: String,

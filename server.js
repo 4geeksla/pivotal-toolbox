@@ -97,7 +97,7 @@ client.on('chat_message', function(ev) {
 // the id is a conversation id.
 client.connect(creds).then(function() {
     return client.sendchatmessage('UgwgjAkjSbqRJ0ALdsx4AaABAQ',
-    [[0, 'HI! .. server started...  [created by ecaminero]']]);
+    [[0, 'HI! .. Pivotal Toolbox started...  [created by alacret]']]);
 }).done();
 
 
